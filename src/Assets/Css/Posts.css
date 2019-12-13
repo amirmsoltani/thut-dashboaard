@@ -1,0 +1,29 @@
+
+
+.posts
+{
+    width: 100%;
+    margin-top: 50px;
+    display: inline-flex;
+    flex-flow: wrap;
+    justify-content: center;
+    position: static;
+
+}
+
+.post_item
+{
+    width: 90%;
+    height: 80px;
+    display: flex;
+    flex-flow: row;
+    margin: 10px 0;
+    background-color: rgba(50,50,50,.5);
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
+}
+.post_item img {
+    width: 80px;
+    height: 100%;
+}

@@ -1,0 +1,189 @@
+.term {
+    width: 40%;
+    display: flex;
+    margin: 10px 20px;
+    flex-flow: wrap;
+    position: static;
+
+
+}
+
+.term_list {
+    list-style-type: none;
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+    max-height: 300px;
+    overflow-y: scroll;
+    display: flex;
+    flex-flow: wrap;
+    position: relative;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+
+}
+
+.term_list-item {
+    width: 100%;
+    display: inline-flex;
+    flex-flow: row;
+    position: static;
+    justify-content: space-between;
+    text-align: center;
+    margin: 5px 10px;
+}
+
+.term_search {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    padding: 0;
+    position: static;
+
+}
+
+.term_manager {
+    width: 100%;
+    padding: 20px 0;
+}
+
+.term_control {
+    width: 70%;
+    margin: auto;
+    position: relative;
+}
+
+.term_options {
+
+}
+
+.term_name, .term_slug {
+    width: 40%;
+    height: 35px;
+    margin: 10px;
+}
+
+.term_add {
+    width: 10%;
+    height: 40px;
+}
+
+.term_items {
+    position: relative;
+    width: 100%;
+    list-style-type: none;
+    display: inline-flex;
+    flex-flow: column;
+    padding: 0;
+    margin: 0;
+}
+
+.term_item {
+    position: relative;
+    max-width: 100%;
+    background-color: dimgrey;
+    display: inline-flex;
+    flex-flow: row;
+    margin: 5px;
+    padding: 5px 5px;
+    color: white;
+    justify-content: space-between;
+}
+
+.taxonomy {
+    width: 80%;
+    position: fixed;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: rgba(30, 30, 30, .9);
+    z-index: 10;
+    color: white;
+
+}
+
+.taxonomy_close {
+    width: 40px;
+    height: 40px;
+    margin: 20px;
+
+}
+
+.taxonomy_list {
+    list-style-type: none;
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+    flex-flow: wrap;
+    width: 100%;
+    justify-content: space-around;
+
+}
+
+.taxonomy_item {
+    display: flex;
+    flex-flow: wrap;
+    max-width: 200px;
+    height: 200px;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: rgba(30, 30, 30, .9);
+
+}
+
+.taxonomy_item span {
+    display: inline-block;
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    height: auto;
+}
+.taxonomy_item span:nth-child(even)
+{
+    text-align: right;
+    font-size: 14px;
+
+}
+.taxonomy_item span:nth-child(4)
+{
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+
+.taxonomy_add{
+    width: 200px;
+    height: 200px;
+    font-size: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding: 10px;
+}
+.taxonomy_add:hover{
+    background-color: rgba(30,30,30,.9);
+    cursor: pointer;
+}
+.taxonomy_add-box{
+    width: 80%;
+    max-width: 80%;
+    min-width: 80%;
+    position: absolute;
+    background-color: rgba(80,80,80,.9);
+    margin: 10px 10% 10px 10%;
+    display: inline-block;
+
+
+}
+.taxonomy_add-box *{
+    width: 80%;
+    max-width: 80%;
+    display: inline-block;
+    margin: 10px 10%;
+    height: 35px;
+    position: relative;
+
+
+
+}

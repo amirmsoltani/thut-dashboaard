@@ -1,0 +1,9 @@
+export const POSTS_URL = "https://api.thut.ir/posts/";
+export const POST_URL = "https://api.thut.ir/post/";
+export const TAXONOMY_URL = "https://api.thut.ir/taxonomy/";
+export const FILE_URL = "https://api.thut.ir/files/";
+export const TERM_URL = "https://api.thut.ir/term/";
+export const DOMAIN = "d1.thut.ir";
+export const PARSA_UPLOAD = "https://api.parsaspace.com/v1/files/upload";
+export const PARSA_REMOTE = "https://api.parsaspace.com/v1/remote/new";
+export const LOGIN_URL = "https://api.thut.ir/login/";

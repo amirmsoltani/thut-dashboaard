@@ -1,0 +1,60 @@
+.image_manager{
+    width: 80%;
+    margin: auto;
+    position: relative;
+    display: block;
+}
+.image_manager-search{
+    width: 100%;
+    height: 35px;
+    margin: 20px 10px;
+}
+
+.image_manager-list{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-flow: wrap;
+    align-items: baseline;
+    list-style-type: none;
+    padding: 0;
+    justify-content: space-around;
+}
+.image_manager-item{
+    width: 200px;
+    margin: 10px 0;
+
+}
+.manager-item-image{
+    width: 100%;
+}
+.add_button{
+    margin: 10px 0;
+    font-size: 80px;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: normal;
+    background-color: rgba(50,50,50,.2);
+}
+.add_button:hover{
+    background-color: rgba(50,50,50,.9);
+    color: white;
+    cursor: pointer;
+}
+.image_manager-add{
+    width: 80%;
+    background-color: black;
+    color: white;
+    position: fixed;
+    display: block;
+}
+.image_manager-add *{
+    width: 90%;
+    height: 35px;
+    margin: 10px 5%;
+
+
+}
