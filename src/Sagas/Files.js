@@ -60,7 +60,7 @@ export function* UploadFile(action) {
 
         yield put({type: SET_STATE_FILE, url: action.url, percent: percent, link: result.data.downloadLink});
         yield call(CreateFile, {
-                url: result.data.downloadLink,
+                url: encodeURI(result.data.downloadLink.replace("http:", "https:")),
                 meta: action.meta,
                 description: action.description,
                 file_type: "remote"
@@ -131,13 +131,13 @@ export function* GetImage(action) {
 
 export function* UploadImage(action) {
     const form = new FormData();
-    form.append('image',action.image.image);
-    form.append('description',action.image.description);
-    form.append('type',1);
+    form.append('image', action.image.image);
+    form.append('description', action.image.description);
+    form.append('type', 1);
     try {
-        const result = yield axios.post(FILE_URL,form);
-        const {items,search,count} = yield select(state=>state.File.image);
-        yield put({type:SET_IMAGE,image:{search,count,items:[...items,result.data]}}) ;
+        const result = yield axios.post(FILE_URL, form);
+        const {items, search, count} = yield select(state => state.File.image);
+        yield put({type: SET_IMAGE, image: {search, count, items: [...items, result.data]}});
     } catch (e) {
         console.log(e);
     }
