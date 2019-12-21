@@ -1,7 +1,7 @@
 import {put, takeLatest, select, fork, delay, call} from 'redux-saga/effects';
 import axios from 'axios';
 import {GET_FILES, SET_FILES, SET_STATE_FILE, POST_SET_META, SET_IMAGE} from "../Actions";
-import {FILE_URL, PARSA_UPLOAD, DOMAIN, PARSA_REMOTE} from "../service.info";
+import {FILE_URL, FILE_UPLOAD, DOMAIN, PARSA_REMOTE} from "../service.info";
 
 const types = {'image': 1, 'video': 2, 'url': 3, 'file': 4, 'remote': 5};
 
@@ -26,8 +26,7 @@ export default takeLatest(GET_FILES, GetFile);
 export function* UploadFile(action) {
     const form = new FormData();
     form.append("file", action.file);
-    form.append("domain", DOMAIN);
-
+    form.append("description",action.description);
     const CancelToken = axios.CancelToken;
     const source = yield CancelToken.source();
 
@@ -43,8 +42,6 @@ export function* UploadFile(action) {
 
     yield fork(onchange);
     try {
-        const token = yield select(state => state.Primary.parsa_token);
-        const headers = {'Authorization': token, 'content-type': 'multipart/form-data;'};
 
 
         const progress = progressEvent => {
@@ -52,20 +49,13 @@ export function* UploadFile(action) {
         };
 
 
-        const result = yield axios.post(PARSA_UPLOAD, form, {
-            headers: headers,
+        const result = yield axios.post(FILE_UPLOAD, form, {
             onUploadProgress: progress,
             cancelToken: source.token
         });
 
-        yield put({type: SET_STATE_FILE, url: action.url, percent: percent, link: result.data.downloadLink});
-        yield call(CreateFile, {
-                url: encodeURI(result.data.downloadLink.replace("http:", "https:")),
-                meta: action.meta,
-                description: action.description,
-                file_type: "remote"
-            }
-        );
+        yield put({type: SET_STATE_FILE, url: action.url, percent: percent, link: result.data.url});
+        yield put({type: POST_SET_META, meta: {key: action.meta, value: action.description, file: result.data}, meta_type: "list"});
 
     } catch (e) {
         if (axios.isCancel(e)) {

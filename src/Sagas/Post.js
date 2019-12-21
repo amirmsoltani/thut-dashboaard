@@ -31,7 +31,7 @@ export function* UpdatePost(action) {
     const headers = {'Content-Type': 'application/json'};
     try {
         const form = post.getJson(action.post_type, action.status);
-        yield axios.patch(POSTS_URL, form, {headers});
+        yield axios.patch(POSTS_URL+post.id, form, {headers});
     } catch (e) {
         yield console.log(e);
     }

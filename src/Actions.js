@@ -34,4 +34,4 @@ export const SET_IMAGE = "SET_IMAGE";
 export const UPLOAD_IMAGE = "UPLOAD_IMAGE";
 export const LOGIN = "LOGIN";
 export const SET_AUTH = "SET_AUTH";
-
+export const SUBMIT_TAG = "SUBMIT_TAG";
