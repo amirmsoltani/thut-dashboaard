@@ -1,7 +1,7 @@
 import {put, takeLatest, select, fork, delay, call} from 'redux-saga/effects';
 import axios from 'axios';
 import {GET_FILES, SET_FILES, SET_STATE_FILE, POST_SET_META, SET_IMAGE} from "../Actions";
-import {FILE_URL, FILE_UPLOAD, DOMAIN, PARSA_REMOTE} from "../service.info";
+import {FILE_URL, FILE_UPLOAD, PARSA_REMOTE} from "../service.info";
 
 const types = {'image': 1, 'video': 2, 'url': 3, 'file': 4, 'remote': 5};
 
@@ -26,7 +26,7 @@ export default takeLatest(GET_FILES, GetFile);
 export function* UploadFile(action) {
     const form = new FormData();
     form.append("file", action.file);
-    form.append("description",action.description);
+    form.append("description", action.description);
     const CancelToken = axios.CancelToken;
     const source = yield CancelToken.source();
 
@@ -47,15 +47,17 @@ export function* UploadFile(action) {
         const progress = progressEvent => {
             percent = Math.floor((progressEvent.loaded * 100) / progressEvent.total);
         };
-
-
         const result = yield axios.post(FILE_UPLOAD, form, {
             onUploadProgress: progress,
-            cancelToken: source.token
+            cancelToken: source.token,
         });
 
         yield put({type: SET_STATE_FILE, url: action.url, percent: percent, link: result.data.url});
-        yield put({type: POST_SET_META, meta: {key: action.meta, value: action.description, file: result.data}, meta_type: "list"});
+        yield put({
+            type: POST_SET_META,
+            meta: {key: action.meta, value: action.description, file: result.data},
+            meta_type: "list"
+        });
 
     } catch (e) {
         if (axios.isCancel(e)) {
@@ -69,7 +71,7 @@ export function* UploadFile(action) {
 export function* Remote(action) {
     const form = new FormData();
     form.append("url", action.url);
-    form.append("domain", DOMAIN);
+    //form.append("domain", DOMAIN);
     let file_name = action.url.split("/");
     if (file_name[file_name.length - 1] === "")
         file_name = file_name[file_name.length - 2];
@@ -79,9 +81,9 @@ export function* Remote(action) {
         const token = yield select(state => state.Primary.parsa_token);
         const headers = {'Authorization': token, 'content-type': 'application/x-www-form-urlencoded'};
         yield axios.post(PARSA_REMOTE, form, {headers: headers});
-        yield put({type: SET_STATE_FILE, url: action.url, percent: 100, link: `https://${DOMAIN}/${file_name}`});
+        //yield put({type: SET_STATE_FILE, url: action.url, percent: 100, link: `https://${DOMAIN}/${file_name}`});
         yield call(CreateFile, {
-                url: `https://${DOMAIN}/${file_name}`,
+                //url: `https://${DOMAIN}/${file_name}`,
                 meta: action.meta,
                 description: action.description,
                 file_type: "remote"
