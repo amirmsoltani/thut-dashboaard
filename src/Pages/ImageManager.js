@@ -7,15 +7,15 @@ class ImageManager extends Component {
     state = {add: false, description: "", file: {}};
 
     UNSAFE_componentWillMount() {
-        if (this.props.image.items === undefined)
+        if (this.props.image === undefined)
             this.props.dispatch({type: GET_IMAGE, search: ""});
     }
 
     render() {
-        const {items} = this.props.image;
         const {add, file, description} = this.state;
-        if (items === undefined)
+        if (this.props.image === undefined)
             return <div className="image_manager"/>;
+        const {items} = this.props.image;
         return (
             <div className="image_manager">
                 <input type="text" className="image_manager-search" placeholder="search"/>

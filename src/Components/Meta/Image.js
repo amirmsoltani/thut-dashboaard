@@ -12,55 +12,41 @@ class Image extends Component {
             description: meta.value,
             items: [],
             search: "",
-            active: false
+            active: false,
         };
         if (props.image === undefined)
             props.dispatch({type: GET_FILES, key: 'image', search: ""});
-        else
-            setTimeout(this.serialize.bind(this),1000,props.image, "");
-    }
-
-    serialize(image, new_search) {
-        const {count, search, items} = image;
-        const new_items = items.filter(item => (
-            item.description.includes(new_search)
-        ));
-        if ((count > 20 && new_items.length < 10) || search.length > new_search.length)
-            this.props.dispatch({type: GET_FILES, key: 'image', search: new_search});
-        this.setState({search: new_search, items: new_items});
-
     }
 
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        const image = nextProps.image;
-        if (image)
-            this.serialize(image, this.state.search);
-    }
+
+
 
     select(item) {
         this.setState({active: false, select: item});
         this.props.dispatch({
             type: POST_SET_META,
-            meta: {file: item, value: this.state.description, key: this.props.type},meta_type:"text"
+            meta: {file: item, value: this.state.description, key: this.props.type}, meta_type: "text"
         });
 
     }
 
     changeSearch(e) {
         const value = e.target.value;
-        this.serialize(this.props.image, value);
+        if(this.props.image.count > 20 ||this.props.image.search.length>value.length)
+            this.props.dispatch({type: GET_FILES, key: 'image', search: value});
+        this.setState({search:value})
     }
-    clear()
-    {
-        this.setState({select:{},description:""});
-        this.props.dispatch({type:POST_DELETE_META,meta:{key:this.props.type}});
+
+    clear() {
+        this.setState({select: {}, description: ""});
+        this.props.dispatch({type: POST_DELETE_META, meta: {key: this.props.type}});
     }
 
     image = React.createRef();
 
     render() {
-        const {items, select, description, active} = this.state;
+        const { select, description, active, search} = this.state;
 
 
         return (
@@ -87,7 +73,7 @@ class Image extends Component {
                                onChange={e => this.setState({description: e.target.value})}
                                className="image-description"
                                placeholder="description"
-                               onBlur={()=>this.select(select)}
+                               onBlur={() => this.select(select)}
                         />
                         <input type="button"
                                onClick={this.clear.bind(this)}
@@ -98,7 +84,8 @@ class Image extends Component {
                 }
                 <div className="image-images">
                     {
-                        items.map((item, index) => (
+                        this.props.image === undefined?"":
+                        this.props.image.items.filter(i => i.description.includes(search)).map((item, index) => (
                             <img alt={item.description}
                                  src={item.image}
                                  key={index}
